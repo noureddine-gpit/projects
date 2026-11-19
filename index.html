@@ -24,7 +24,7 @@
       border: 1px solid #30363d;
       border-radius: 16px;
       padding: 40px 30px;
-      max-width: 650px;
+      max-width: 680px;
       width: 100%;
       box-shadow: 0 10px 25px rgba(0,0,0,0.5);
     }
@@ -53,9 +53,9 @@
     }
     .project-item {
       background: #21262d;
-      padding: 16px 20px;
+      padding: 18px 20px;
       border-radius: 10px;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -75,34 +75,58 @@
       font-size: 0.85rem;
       color: #8b949e;
     }
+    .btn-group {
+      display: flex;
+      gap: 8px;
+    }
     .btn {
       background: #238636;
       color: white;
       text-decoration: none;
-      padding: 8px 16px;
+      padding: 8px 14px;
       border-radius: 6px;
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       white-space: nowrap;
     }
     .btn:hover {
       background: #2ea043;
     }
+    .btn-secondary {
+      background: #30363d;
+      color: #c9d1d9;
+    }
+    .btn-secondary:hover {
+      background: #3b434d;
+    }
   </style>
 </head>
 <body>
   <div class="card">
-    <div class="badge">🚀 الاستضافة شغالة على GitHub Pages</div>
-    <h1>مكتبة مشاريع نور الدين</h1>
-    <p>جميع التطبيقات والمشاريع يتم رفعها تلقائياً هنا وتعمل مباشرة في المتصفح.</p>
+    <div class="badge">🚀 منصة مشاريع نور الدين على GitHub</div>
+    <h1>مكتبة المشاريع والتطبيقات</h1>
+    <p>جميع المشاريع والتطبيقات يتم حفظها تلقائياً على GitHub مع روابط تشغيل واستعراض مباشرة.</p>
     
     <div class="list">
       <div class="project-item">
         <div class="project-info">
-          <h3>🌿 MetaMint (Metadata & Keywords Tool)</h3>
-          <p>أداة إضافة الكلمات المفتاحية وبيانات EXIF / IPTC / XMP للصور بدون فقدان الجودة (JPG & PNG).</p>
+          <h3>⚡ MilitaryVibeX Automation</h3>
+          <p>أداة تنزيل الفيديوهات التلقائية المربوطة بـ Google Sheet مع لوحة تحكم ويب حديثة.</p>
         </div>
-        <a href="metamint/" class="btn">تشغيل التطبيق ↗</a>
+        <div class="btn-group">
+          <a href="militaryvibex/" class="btn">معاينة الواجهة ↗</a>
+          <a href="https://github.com/noureddine-gpit/militaryvibex-automation" target="_blank" class="btn btn-secondary">المستودع ↗</a>
+        </div>
+      </div>
+
+      <div class="project-item">
+        <div class="project-info">
+          <h3>🌿 MetaMint (Metadata Tool)</h3>
+          <p>أداة زراعة الكلمات المفتاحية في بيانات الصور بدون إعادة ضغط (JPG & PNG).</p>
+        </div>
+        <div class="btn-group">
+          <a href="metamint/" class="btn">تشغيل التطبيق ↗</a>
+        </div>
       </div>
     </div>
   </div>
