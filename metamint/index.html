@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="أداة محلية لإضافة الكلمات المفتاحية إلى بيانات صور JPG وPNG"
+    />
+    <title>MetaMint — كلمات مفتاحية داخل الصور</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-glow page-glow-one" aria-hidden="true"></div>
+    <div class="page-glow page-glow-two" aria-hidden="true"></div>
+
+    <main class="shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="MetaMint الرئيسية">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" role="img">
+              <path d="M8.8 19.7c5.5.2 10-3.2 12-9.8 4.1 7.7.4 15.1-6.6 15.1-3.6 0-6.5-2.1-7.3-5.2.6-.1 1.2-.1 1.9-.1Z" />
+              <path d="M8.1 22.7c2.7-4.2 6-7.2 10-9.2" class="brand-stem" />
+            </svg>
+          </span>
+          <span>MetaMint</span>
+        </a>
+
+        <div class="privacy-pill">
+          <span class="pulse-dot" aria-hidden="true"></span>
+          100% محلي — الصور كتبقى عندك
+        </div>
+      </header>
+
+      <section class="hero">
+        <p class="eyebrow">IMAGE METADATA TOOL</p>
+        <h1>زرع الـkeywords<br /><span>وسط الصورة.</span></h1>
+        <p class="hero-copy">
+          ضيف كلمات مفتاحية احترافية لصور JPG وPNG بلا ما تتبدل الجودة، وبلا ما تطلع
+          الصور لأي سيرفر.
+        </p>
+      </section>
+
+      <section class="workspace" aria-label="أداة تعديل البيانات الوصفية">
+        <div class="steps" aria-label="مراحل الاستخدام">
+          <div class="step is-active" data-step-indicator="1">
+            <span>01</span>
+            <p>الصور</p>
+          </div>
+          <div class="step" data-step-indicator="2">
+            <span>02</span>
+            <p>الكلمات</p>
+          </div>
+          <div class="step" data-step-indicator="3">
+            <span>03</span>
+            <p>التحميل</p>
+          </div>
+        </div>
+
+        <div class="panels">
+          <section class="panel upload-panel" aria-labelledby="images-heading">
+            <div class="panel-heading">
+              <div>
+                <p class="section-kicker">الخطوة الأولى</p>
+                <h2 id="images-heading">اختار الصور</h2>
+              </div>
+              <span class="file-counter" id="fileCounter">0 صور</span>
+            </div>
+
+            <button class="dropzone" id="dropzone" type="button">
+              <input
+                id="fileInput"
+                type="file"
+                accept="image/jpeg,image/png,.jpg,.jpeg,.png"
+                multiple
+                hidden
+              />
+              <span class="upload-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14.5v3A2.5 2.5 0 0 0 7.5 20h9a2.5 2.5 0 0 0 2.5-2.5v-3" />
+                </svg>
+              </span>
+              <strong>جرّ الصور لهنا</strong>
+              <span>أو اضغط باش تختارهم</span>
+              <small>JPG أو PNG · حتى 25 MB للصورة</small>
+            </button>
+
+            <div class="file-list" id="fileList" aria-live="polite"></div>
+          </section>
+
+          <section class="panel editor-panel" aria-labelledby="keywords-heading">
+            <div class="panel-heading">
+              <div>
+                <p class="section-kicker">الخطوة الثانية</p>
+                <h2 id="keywords-heading">دخل الكلمات</h2>
+              </div>
+              <span class="tag-counter"><b id="tagCount">0</b> keyword</span>
+            </div>
+
+            <label class="field-label" for="keywordInput">Keywords / Tags</label>
+            <div class="tag-editor" id="tagEditor">
+              <div class="tag-list" id="tagList"></div>
+              <input
+                id="keywordInput"
+                type="text"
+                autocomplete="off"
+                placeholder="مثال: wall art, neutral decor, printable…"
+              />
+            </div>
+            <p class="field-help">فصل الكلمات بفاصلة أو Enter. تقدر تلصق لائحة كاملة مرة وحدة.</p>
+
+            <div class="quick-actions">
+              <button class="text-button" id="pasteButton" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5h6m-5-2h4a1 1 0 0 1 1 1v2H9V4a1 1 0 0 1 1-1ZM8 5H6.8A1.8 1.8 0 0 0 5 6.8v12.4A1.8 1.8 0 0 0 6.8 21h10.4a1.8 1.8 0 0 0 1.8-1.8V6.8A1.8 1.8 0 0 0 17.2 5H16" /></svg>
+                لصق من الحافظة
+              </button>
+              <button class="text-button danger-text" id="clearTagsButton" type="button">مسح الكل</button>
+            </div>
+
+            <label class="switch-row">
+              <span>
+                <b>دمج الكلمات القديمة</b>
+                <small>نحتافظ بالـkeywords الموجودة ونزيد عليهم</small>
+              </span>
+              <input id="mergeExisting" type="checkbox" checked />
+              <span class="switch" aria-hidden="true"></span>
+            </label>
+
+            <details class="advanced">
+              <summary>
+                <span>معلومات إضافية <small>اختيارية</small></span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 10 4 4 4-4" /></svg>
+              </summary>
+              <div class="advanced-grid">
+                <label>
+                  <span>العنوان</span>
+                  <input id="titleInput" type="text" placeholder="اسم التصميم أو المنتج" />
+                </label>
+                <label>
+                  <span>المؤلف / المتجر</span>
+                  <input id="creatorInput" type="text" placeholder="اسمك أو اسم المتجر" />
+                </label>
+                <label class="wide-field">
+                  <span>الوصف</span>
+                  <textarea id="descriptionInput" rows="3" placeholder="وصف قصير للصورة"></textarea>
+                </label>
+                <label class="wide-field">
+                  <span>حقوق النشر</span>
+                  <input id="copyrightInput" type="text" placeholder="© 2026 اسم المتجر" />
+                </label>
+              </div>
+            </details>
+
+            <button class="primary-button" id="processButton" type="button" disabled>
+              <span>ضيف metadata للصور</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5" /></svg>
+            </button>
+
+            <p class="format-note">
+              غادي نكتب الكلمات بمعياري <b>IPTC + XMP</b> فـJPG، و<b>XMP</b> فـPNG.
+            </p>
+          </section>
+        </div>
+      </section>
+
+      <aside class="etsy-note">
+        <div class="note-icon" aria-hidden="true">E</div>
+        <div>
+          <strong>ملاحظة مهمة لـEtsy</strong>
+          <p>
+            هاد metadata مفيدة لتنظيم وحماية ملفاتك، ولكن SEO ديال Etsy كيعتمد أكثر على
+            Title و13 Tags وDescription وAttributes داخل الـlisting.
+          </p>
+        </div>
+      </aside>
+
+      <footer>
+        <span>MetaMint</span>
+        <p>لا رفع · لا ضغط · لا تغيير فالبكسلات</p>
+      </footer>
+    </main>
+
+    <div class="toast-region" id="toastRegion" aria-live="polite"></div>
+
+    <template id="fileItemTemplate">
+      <article class="file-item">
+        <div class="thumbnail-wrap">
+          <img class="thumbnail" alt="" />
+          <span class="file-type"></span>
+        </div>
+        <div class="file-info">
+          <strong class="file-name"></strong>
+          <span class="file-meta"></span>
+          <span class="existing-tags"></span>
+        </div>
+        <button class="remove-file" type="button" aria-label="حذف الصورة">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17" /></svg>
+        </button>
+        <a class="download-file" hidden>
+          تحميل
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0 4-4m-4 4-4-4M5 19h14" /></svg>
+        </a>
+      </article>
+    </template>
+
+    <script src="metadata-core.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
