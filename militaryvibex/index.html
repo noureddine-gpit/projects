@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MilitaryVibeX Downloader</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="scanlines" aria-hidden="true"></div>
+
+    <div class="app">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+              <path d="M2 17l10 5 10-5"/>
+              <path d="M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <div>
+            <h1 class="brand-name">MilitaryVibeX</h1>
+            <p class="brand-sub">Video Downloader</p>
+          </div>
+        </div>
+        <div class="status-pill" id="statusPill">
+          <span class="status-dot" id="statusDot"></span>
+          <span id="statusText">Connecting…</span>
+        </div>
+      </header>
+
+      <main>
+        <!-- ── Stats ───────────────────────────────────────────── -->
+        <section class="stats">
+          <div class="stat-card">
+            <span class="stat-icon stat-icon--completed">✓</span>
+            <div>
+              <span class="stat-value" id="completedCount">—</span>
+              <span class="stat-label">Completed</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon stat-icon--queue">↓</span>
+            <div>
+              <span class="stat-value" id="queueCount">—</span>
+              <span class="stat-label">In Queue</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon stat-icon--quality">◈</span>
+            <div>
+              <span class="stat-value" id="qualityDisplay">1080p</span>
+              <span class="stat-label">Quality</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon stat-icon--deps">⚡</span>
+            <div>
+              <span class="stat-value" id="depsDisplay">—</span>
+              <span class="stat-label">Dependencies</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── Config ──────────────────────────────────────────── -->
+        <section class="card config-card">
+          <div class="card-header">
+            <h2>Configuration</h2>
+            <span class="card-badge">SETUP</span>
+          </div>
+
+          <div class="field">
+            <label for="sheetUrl">Google Sheet URL</label>
+            <input id="sheetUrl" type="url" spellcheck="false"
+                   placeholder="https://docs.google.com/spreadsheets/d/…" />
+          </div>
+
+          <div class="field-row">
+            <div class="field field-grow">
+              <label for="folder">Download Folder</label>
+              <input id="folder" type="text" spellcheck="false"
+                     placeholder="C:\Users\…\Downloads\MilitaryVibeX" />
+            </div>
+            <button id="browseBtn" class="btn btn-icon" type="button"
+                    title="Browse for folder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+              </svg>
+            </button>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="batchSize">Videos this run</label>
+              <input id="batchSize" type="number" min="1" max="500" value="10" />
+            </div>
+            <div class="field">
+              <label for="quality">Max Quality</label>
+              <select id="quality">
+                <option value="1080" selected>1080p</option>
+                <option value="720">720p</option>
+                <option value="480">480p</option>
+              </select>
+            </div>
+          </div>
+
+          <label class="check-row" id="rightsRow">
+            <input id="rightsCheck" type="checkbox" />
+            <span class="checkmark"></span>
+            <span>I confirm that I own these videos or have permission to
+              download and reuse them.</span>
+          </label>
+        </section>
+
+        <!-- ── Controls & Progress ─────────────────────────────── -->
+        <section class="controls-bar">
+          <div class="controls-buttons">
+            <button id="startBtn" class="btn btn-primary" disabled>
+              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <span>Start</span>
+            </button>
+            <button id="pauseBtn" class="btn btn-warning" disabled>
+              <svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+              <span>Pause</span>
+            </button>
+            <button id="openFolderBtn" class="btn btn-ghost">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5l2 3h4a2 2 0 0 1 2 2z"/>
+                <path d="M15 3h4a2 2 0 0 1 2 2v4"/>
+              </svg>
+              <span>Open Folder</span>
+            </button>
+          </div>
+
+          <div class="progress-section" id="progressSection">
+            <div class="progress-meta">
+              <span id="progressLabel"></span>
+              <span id="progressPercent">0%</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <p class="current-video" id="currentVideo"></p>
+          </div>
+        </section>
+
+        <!-- ── Activity Log ────────────────────────────────────── -->
+        <section class="card log-card">
+          <div class="card-header">
+            <h2>Activity Log</h2>
+            <button id="clearLogBtn" class="btn-text" type="button">Clear</button>
+          </div>
+          <div class="log-body" id="logBody">
+            <p class="log-welcome">Waiting for activity…</p>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <span>MilitaryVibeX Downloader v2.0</span>
+        <span class="footer-sep">·</span>
+        <span>yt-dlp + ffmpeg</span>
+      </footer>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
